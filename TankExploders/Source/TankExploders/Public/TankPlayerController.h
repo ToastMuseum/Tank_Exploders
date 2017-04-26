@@ -16,7 +16,18 @@ class TANKEXPLODERS_API ATankPlayerController : public APlayerController
 	
 	
 public:
-	 ATank* GetControlledTank() const;
 	
 	 virtual void BeginPlay() override;
+
+	 virtual void Tick(float DeltaSeconds) override;
+
+	 ATank* GetControlledTank() const;
+
+private:
+	//jdeo- start tank moving barrel so a shot would hit where
+	// the crosshair intersects the world
+	 void AimTowardsCrosshair();
+
+	 //Return OUT parameter, true if hit landscape - jdeo
+	 bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 };

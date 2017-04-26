@@ -80,3 +80,4 @@ TankExploders.VC.VC.opendb
 *.vs/BuildingEscape/v14/.suo
 *.suo
 
+*.ipch
