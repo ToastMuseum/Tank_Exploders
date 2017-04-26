@@ -61,6 +61,19 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
 	
 
+	/* Testing MouseCoordinates on screen instead of crosshair reticle
+	
+	float X, Y;
+	auto Mouse = GetMousePosition(X, Y);
+	FVector2D MouseCoord = FVector2D (X, Y);
+	if (!Mouse) {
+		UE_LOG(LogTemp, Warning, TEXT("No Mouse Coords"));
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("Mouse Coordinates: %s"), *(MouseCoord.ToString()));
+	}
+	*/
+
 	//"De-project" the screen position of the crosshair to a world direction
 	// Linetrace along that look direction and see what we hit (up to max range)
 	return true;
