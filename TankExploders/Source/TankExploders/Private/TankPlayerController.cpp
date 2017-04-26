@@ -45,8 +45,8 @@ void ATankPlayerController::AimTowardsCrosshair() {
 
 	FVector OutHitLocation; //OutParameter -jdeo
 	if (GetSightRayHitLocation(OutHitLocation)) { //Has "side-effect", is going to line trace -jdeo
-		UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *(OutHitLocation.ToString()));
-
+		UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *(OutHitLocation.ToString()));
+		
 		//TODO:  tell controlled tank to aim at this point
 	}
 }
@@ -54,7 +54,15 @@ void ATankPlayerController::AimTowardsCrosshair() {
 //jdeo - Get world location of linetrace through crosshair, true if hits the landscape -jdeo
 bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const
 {
-	OutHitLocation = FVector(1.0);
+	//Find the crosshair position
+	int32 ViewportSizeX, ViewportSizeY;
+	GetViewportSize(ViewportSizeX, ViewportSizeY);
+
+	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
+	
+
+	//"De-project" the screen position of the crosshair to a world direction
+	// Linetrace along that look direction and see what we hit (up to max range)
 	return true;
 	
 }
