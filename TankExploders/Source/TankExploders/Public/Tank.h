@@ -2,13 +2,21 @@
 
 #pragma once
 
+#include "TankAimingComponent.h"
 #include "GameFramework/Pawn.h"
-#include "Tank.generated.h"
+#include "Tank.generated.h" //jdeo- must put new #includes about the generated.h 
 
 UCLASS()
 class TANKEXPLODERS_API ATank : public APawn
 {
 	GENERATED_BODY()
+
+protected:
+	// jdeo- cant be private because this is being accessed through a Ucomponent 
+	//			and it should not be public because it should not be accessed
+	//			outside of the tank
+
+	UTankAimingComponent* TankAimingComponent = nullptr;
 
 public:
 	// Sets default values for this pawn's properties
