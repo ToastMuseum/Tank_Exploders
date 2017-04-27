@@ -7,10 +7,10 @@
 
 
 // BeginPlay -Jdeo
-void ATankPlayerController::BeginPlay() 
+void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	//UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play"));
 
 	auto ControlledTank = GetControlledTank();
@@ -36,17 +36,18 @@ ATank* ATankPlayerController::GetControlledTank() const
 	return Cast<ATank>(GetPawn());
 }
 
+
 void ATankPlayerController::AimTowardsCrosshair() {
 
-	UE_LOG(LogTemp, Warning, TEXT("aiming crosshairs"));
-	
-	if (!GetControlledTank()) { return;	}
-	
+	//UE_LOG(LogTemp, Warning, TEXT("aiming crosshairs"));
+
+	if (!GetControlledTank()) { return; }
+
 
 	FVector OutHitLocation; //OutParameter -jdeo
 	if (GetSightRayHitLocation(OutHitLocation)) { //Has "side-effect", is going to line trace -jdeo
-		UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *(OutHitLocation.ToString()));
-		
+		//UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *(OutHitLocation.ToString()));
+
 		//TODO:  tell controlled tank to aim at this point
 	}
 }
@@ -59,10 +60,10 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
 
 	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
-	
+
 
 	/* Testing MouseCoordinates on screen instead of crosshair reticle
-	
+
 	float X, Y;
 	auto Mouse = GetMousePosition(X, Y);
 	FVector2D MouseCoord = FVector2D (X, Y);
@@ -74,8 +75,27 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	}
 	*/
 
+
 	//"De-project" the screen position of the crosshair to a world direction
+	FVector LookDirection;
+	if (GetLookDirection(ScreenLocation, LookDirection)){
+		UE_LOG(LogTemp, Warning, TEXT("Look Direction: %s"), *(LookDirection.ToString()));
+
+	}
+
 	// Linetrace along that look direction and see what we hit (up to max range)
 	return true;
 	
+}
+
+bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const {
+
+	FVector CameraWorldLocation; // Discarded in output of this method-jdeo
+
+	return DeprojectScreenPositionToWorld(ScreenLocation.X,
+		ScreenLocation.Y,
+		CameraWorldLocation,
+		LookDirection
+	);
+
 }

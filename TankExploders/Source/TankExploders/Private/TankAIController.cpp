@@ -22,11 +22,14 @@ void ATankAIController::BeginPlay() {
 }
 
 
+// Get Controlled Tank -jdeo
 ATank* ATankAIController::GetControlledTank() const {
 
 	return Cast<ATank>(GetPawn());
 }
 
+
+// Get Player Tank -jdeo
 ATank* ATankAIController::GetPlayerTank() const {
 
 	return Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());

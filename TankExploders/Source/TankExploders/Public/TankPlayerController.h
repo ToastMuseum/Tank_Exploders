@@ -31,10 +31,15 @@ private:
 	 //Return OUT parameter, true if hit landscape - jdeo
 	 bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 
+
 	 UPROPERTY (EditAnywhere)
 	 float CrosshairXLocation = 0.5;
 
 	 UPROPERTY(EditAnywhere)
 	 float CrosshairYLocation = 0.3333;
 
+	 /*jdeo- const because Getting the look direction is not going to be changing
+			any of the member variables of this class
+	*/
+	 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
 };
