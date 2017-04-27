@@ -41,5 +41,10 @@ private:
 	 /*jdeo- const because Getting the look direction is not going to be changing
 			any of the member variables of this class
 	*/
-	 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
+	 bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
+
+	 bool GetLookVectorHitLocation(FVector LookDirection, FVector& OutHitLocation) const;
+
+	 UPROPERTY(EditAnywhere)
+	 float LineTraceRange = 1000000; //cm to km
 };

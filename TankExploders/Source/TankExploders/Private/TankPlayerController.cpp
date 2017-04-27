@@ -46,7 +46,8 @@ void ATankPlayerController::AimTowardsCrosshair() {
 
 	FVector OutHitLocation; //OutParameter -jdeo
 	if (GetSightRayHitLocation(OutHitLocation)) { //Has "side-effect", is going to line trace -jdeo
-		//UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *(OutHitLocation.ToString()));
+		
+		UE_LOG(LogTemp, Warning, TEXT("Hit location: %s"), *(OutHitLocation.ToString()));
 
 		//TODO:  tell controlled tank to aim at this point
 	}
@@ -61,7 +62,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 
 	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
 
-
+	//mouse location on screen
 	/* Testing MouseCoordinates on screen instead of crosshair reticle
 
 	float X, Y;
@@ -79,11 +80,12 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	//"De-project" the screen position of the crosshair to a world direction
 	FVector LookDirection;
 	if (GetLookDirection(ScreenLocation, LookDirection)){
-		UE_LOG(LogTemp, Warning, TEXT("Look Direction: %s"), *(LookDirection.ToString()));
-
+		// Linetrace along that look direction and see what we hit (up to max range)
+		//UE_LOG(LogTemp, Warning, TEXT("Look Direction: %s"), *(LookDirection.ToString()));
+		GetLookVectorHitLocation(LookDirection, OutHitLocation);
 	}
 
-	// Linetrace along that look direction and see what we hit (up to max range)
+	
 	return true;
 	
 }
@@ -98,4 +100,26 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& 
 		LookDirection
 	);
 
+}
+
+bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& OutHitLocation) const
+{
+
+	FHitResult HitResult;
+	auto StartLocation = PlayerCameraManager->GetCameraLocation();
+	auto EndLocation = StartLocation + (LookDirection * LineTraceRange);
+
+	if (GetWorld()->LineTraceSingleByChannel(
+		HitResult,
+		StartLocation,
+		EndLocation,
+		ECollisionChannel::ECC_Visibility
+	)) {
+		// Set hit location
+		OutHitLocation = HitResult.Location;
+		return true;
+	}
+	OutHitLocation = FVector(0);
+	return false;
+	
 }
