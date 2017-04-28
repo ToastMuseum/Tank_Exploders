@@ -32,5 +32,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
 	void AimAt(FVector OutHitLocation);
+
+	UFUNCTION(BlueprintCallable, Category = Setup)	//jdeo- creates a method we can call from blueprint editor
+	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
 	
 };

@@ -11,9 +11,15 @@ class TANKEXPLODERS_API UTankAimingComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+private:
+	UStaticMeshComponent* Barrel = nullptr;
+
 public:	
 	// Sets default values for this component's properties
 	UTankAimingComponent();
+
+	//jdeo- public setter method
+	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
 
 	// Called when the game starts
 	virtual void BeginPlay() override;
