@@ -35,5 +35,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Setup)	//jdeo- creates a method we can call from blueprint editor
 	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+
+private:
+	UPROPERTY(EditAnywhere, Category = Firing)
+	float LaunchSpeed = 100000; // jdeo - 1000 m/s 
+								//TODO: Find Sensible default value
 	
 };

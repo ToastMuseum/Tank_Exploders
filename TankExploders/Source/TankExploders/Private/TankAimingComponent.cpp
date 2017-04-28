@@ -41,17 +41,38 @@ void UTankAimingComponent::TickComponent( float DeltaTime, ELevelTick TickType, 
 
 }
 
-void UTankAimingComponent::AimAt(FVector OutHitLocation) {
+void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed) {
 
 
 	if (!Barrel) {
 		UE_LOG(LogTemp, Warning, TEXT("No Barrel Set"));
 	}
 	else {
-		auto OurTankName = GetOwner()->GetName();
-		auto BarrelLocation = Barrel->GetComponentLocation();
-		//auto BarrelLocation = Barrel->RelativeLocation + Barrel->GetOwner()->GetActorLocation();
-		UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s from %s"), *(OurTankName), *(OutHitLocation.ToString()), *(BarrelLocation.ToString()));
+
+		FVector OutLaunchVelocity;
+		
+		FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile")); //Create a socket in BP editor on the barrel and grab it - jdeo
+		
+		// Calculate the OutLaunchVelocity
+		if (UGameplayStatics::SuggestProjectileVelocity(
+			this,
+			OutLaunchVelocity,
+			StartLocation,
+			OutHitLocation,
+			LaunchSpeed,
+			false,
+			0,
+			0,
+			ESuggestProjVelocityTraceOption::DoNotTrace,
+			FCollisionResponseParams::DefaultResponseParam, // default values need to be added, they cannot be skipped- jdeo
+			TArray<AActor*>(), // default -jdeo
+			false
+		)) {
+
+			auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+			auto TankName = GetOwner()->GetName();
+			UE_LOG(LogTemp, Warning, TEXT("%s is Aiming at: %s"), *(TankName), *(AimDirection.ToString()));
+		}
 	}
 }
 
