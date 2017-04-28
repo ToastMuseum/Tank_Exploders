@@ -20,27 +20,6 @@ void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
 }
 
 
-// Called when the game starts
-void UTankAimingComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-	
-}
-
-
-// Called every frame
-void UTankAimingComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
-{
-	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
-
-	// ...
-
-	
-
-}
-
 void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed) {
 
 
@@ -54,7 +33,7 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed) {
 		FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile")); //Create a socket in BP editor on the barrel and grab it - jdeo
 		
 		// Calculate the OutLaunchVelocity
-		if (UGameplayStatics::SuggestProjectileVelocity(
+		bool bHasAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 			this,
 			OutLaunchVelocity,
 			StartLocation,
@@ -64,15 +43,37 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed) {
 			0,
 			0,
 			ESuggestProjVelocityTraceOption::DoNotTrace,
-			FCollisionResponseParams::DefaultResponseParam, // default values need to be added, they cannot be skipped- jdeo
+			// default values need to be added if you want to skip to use a certain parameter,
+			//they cannot be ommitted- jdeo
+			FCollisionResponseParams::DefaultResponseParam,
 			TArray<AActor*>(), // default -jdeo
 			false
-		)) {
+		);
 
+		if(bHasAimSolution) {
 			auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+
+			MoveBarrelTowards(AimDirection);
+
 			auto TankName = GetOwner()->GetName();
 			UE_LOG(LogTemp, Warning, TEXT("%s is Aiming at: %s"), *(TankName), *(AimDirection.ToString()));
 		}
 	}
+
+}
+
+void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
+
+	// Work out difference between current barrel rotation and AimDirection
+	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
+	auto AimRotator = AimDirection.Rotation();
+	auto DeltaRotator = AimRotator - BarrelRotator;
+	// Move the barrel the correct amount each frame
+	// Given a max elevation speed and the frame time
+
+
+	auto TankName = GetOwner()->GetName();
+	UE_LOG(LogTemp, Warning, TEXT(" %s:  AimRotator: %s"), *TankName, *(DeltaRotator.ToString()));
+
 }
 

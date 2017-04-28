@@ -13,6 +13,7 @@ class TANKEXPLODERS_API UTankAimingComponent : public UActorComponent
 
 private:
 	UStaticMeshComponent* Barrel = nullptr;
+	void MoveBarrelTowards (FVector AimDirection);
 
 public:	
 	// Sets default values for this component's properties
@@ -21,12 +22,10 @@ public:
 	//jdeo- public setter method
 	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
 
-	// Called when the game starts
-	virtual void BeginPlay() override;
-	
-	// Called every frame
-	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
+	// TODO: Add SetTurretReference -jdeo
 
 	void AimAt(FVector WorldSpaceAim, float LaunchSpeed);
+
+	
 	
 };
