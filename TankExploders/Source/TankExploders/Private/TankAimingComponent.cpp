@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+
 #include "TankExploders.h"
+#include "TankBarrel.h"
 #include "TankAimingComponent.h"
 
 
@@ -14,7 +16,7 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
+void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	Barrel = BarrelToSet;
 }
@@ -54,9 +56,6 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed) {
 			auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 
 			MoveBarrelTowards(AimDirection);
-
-			auto TankName = GetOwner()->GetName();
-			UE_LOG(LogTemp, Warning, TEXT("%s is Aiming at: %s"), *(TankName), *(AimDirection.ToString()));
 		}
 	}
 
@@ -68,12 +67,8 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimRotator - BarrelRotator;
-	// Move the barrel the correct amount each frame
-	// Given a max elevation speed and the frame time
-
-
-	auto TankName = GetOwner()->GetName();
-	UE_LOG(LogTemp, Warning, TEXT(" %s:  AimRotator: %s"), *TankName, *(DeltaRotator.ToString()));
+	
+	Barrel->Elevate(5); //TODO: remove magic number
 
 }
 

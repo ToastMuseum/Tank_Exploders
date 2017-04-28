@@ -6,6 +6,10 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h" //jdeo- must put new #includes about the generated.h 
 
+
+
+class UTankBarrel; //Forward declaration -jdeo
+
 UCLASS()
 class TANKEXPLODERS_API ATank : public APawn
 {
@@ -34,7 +38,7 @@ public:
 	void AimAt(FVector OutHitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = Setup)	//jdeo- creates a method we can call from blueprint editor
-	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 private:
 	UPROPERTY(EditAnywhere, Category = Firing)

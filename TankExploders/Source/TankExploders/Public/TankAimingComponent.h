@@ -5,6 +5,8 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
+//Forward Decalaration -jdeo
+class UTankBarrel;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TANKEXPLODERS_API UTankAimingComponent : public UActorComponent
@@ -12,7 +14,8 @@ class TANKEXPLODERS_API UTankAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 private:
-	UStaticMeshComponent* Barrel = nullptr;
+	UTankBarrel* Barrel = nullptr;
+
 	void MoveBarrelTowards (FVector AimDirection);
 
 public:	
@@ -20,7 +23,7 @@ public:
 	UTankAimingComponent();
 
 	//jdeo- public setter method
-	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 	// TODO: Add SetTurretReference -jdeo
 
