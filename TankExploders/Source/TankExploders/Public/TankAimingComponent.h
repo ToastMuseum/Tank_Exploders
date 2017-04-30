@@ -8,6 +8,8 @@
 //Forward Decalaration -jdeo
 class UTankBarrel;
 
+
+// Holds Barrel's properties and elevate method -jdeo
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TANKEXPLODERS_API UTankAimingComponent : public UActorComponent
 {
