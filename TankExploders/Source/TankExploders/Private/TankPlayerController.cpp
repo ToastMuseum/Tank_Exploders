@@ -81,11 +81,10 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	FVector LookDirection;
 	if (GetLookDirection(ScreenLocation, LookDirection)){
 		// Linetrace along that look direction and see what we hit (up to max range)
-		GetLookVectorHitLocation(LookDirection, OutHitLocation);
+		return GetLookVectorHitLocation(LookDirection, OutHitLocation);
 	}
 
-	
-	return true;
+	return false;
 	
 }
 
@@ -118,6 +117,9 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 		OutHitLocation = HitResult.Location;
 		return true;
 	}
+
+	auto TankName = GetControlledTank()->GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s: No LookDirection Found"), *(TankName));
 
 	OutHitLocation = FVector(0);
 	return false;
