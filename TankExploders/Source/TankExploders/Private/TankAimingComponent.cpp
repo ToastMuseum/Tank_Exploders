@@ -44,8 +44,9 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed) {
 			LaunchSpeed,
 			false,
 			0,
-			0,
-			ESuggestProjVelocityTraceOption::DoNotTrace,
+			0
+			,ESuggestProjVelocityTraceOption::DoNotTrace, //TODO: Report Bug: Parameter must be present to prevent bug
+
 			// default values need to be added if you want to skip to use a certain parameter,
 			//they cannot be ommitted- jdeo
 			FCollisionResponseParams::DefaultResponseParam,

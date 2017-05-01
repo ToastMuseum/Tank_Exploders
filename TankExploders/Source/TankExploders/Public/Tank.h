@@ -2,13 +2,13 @@
 
 #pragma once
 
-#include "TankAimingComponent.h"
+
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h" //jdeo- must put new #includes about the generated.h 
 
-
-
-class UTankBarrel; //Forward declaration -jdeo
+//Forward declarations -jdeo
+class UTankAimingComponent;
+class UTankBarrel; 
 
 UCLASS()
 class TANKEXPLODERS_API ATank : public APawn
@@ -20,7 +20,8 @@ protected:
 	//			and it should not be public because it should not be accessed
 	//			outside of the tank
 
-	UTankAimingComponent* TankAimingComponent = nullptr;
+	// TankAimingComponent required so put "TankAimingComponent.h" in Tank.cpp -jdeo
+	UTankAimingComponent* TankAimingComponent = nullptr;  
 
 public:
 	// Sets default values for this pawn's properties

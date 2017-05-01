@@ -2,6 +2,7 @@
 
 
 #include "TankExploders.h"
+#include "Tank.h"				//jdeo - forward declaraction
 #include "TankPlayerController.h"
 
 
