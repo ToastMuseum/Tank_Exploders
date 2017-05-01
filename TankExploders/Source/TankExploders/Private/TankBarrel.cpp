@@ -6,11 +6,9 @@
 
 
 
-void UTankBarrel::Elevate(float DegreesPerSecond) {
+void UTankBarrel::Elevate(float RelativeSpeed) {
 
 	// Move the barrel the correct amount each frame
 	// Given a max elevation speed and the frame time
 
-	auto TankName = GetOwner()->GetName();
-	UE_LOG(LogTemp, Warning, TEXT(" Barrel->Elevate() called: %s"), *TankName);
 }

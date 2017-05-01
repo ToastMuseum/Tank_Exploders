@@ -29,7 +29,8 @@ public:
 
 	// TODO: Add SetTurretReference -jdeo
 
-	void AimAt(FVector WorldSpaceAim, float LaunchSpeed);
+	//void AimAt(FVector WorldSpaceAim, float LaunchSpeed);
+	void AimAt(FVector OutHitLocation, float LaunchSpeed);
 
 	
 	

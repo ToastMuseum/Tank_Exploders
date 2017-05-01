@@ -21,11 +21,10 @@ private:
 	float MinDegrees = 0;
 
 	UPROPERTY(EditAnywhere, Category = "Barrel Setup")
-	float MaxDegreesPerSecond = 5;
+	float MaxDegreesPerSecond = 20;
 
 public:
-	void Elevate(float DegreesPerSecond);
-	
+	void Elevate(float RelativeSpeed); //Max Speed (-1:MaxDownMovement +1:MaxUpMovement)	
 
 
 
