@@ -8,7 +8,8 @@
 
 //Forward declarations -jdeo
 class UTankAimingComponent;
-class UTankBarrel; 
+class UTankBarrel;
+class UTankTurret;
 
 UCLASS()
 class TANKEXPLODERS_API ATank : public APawn
@@ -38,6 +39,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Setup)	//jdeo- creates a method we can call from blueprint editor
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
+
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void SetTurretReference(UTankTurret* TurretToSet);
 
 private:
 	UPROPERTY(EditAnywhere, Category = Firing)

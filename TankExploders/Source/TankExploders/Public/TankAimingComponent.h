@@ -7,6 +7,7 @@
 
 //Forward Decalaration -jdeo
 class UTankBarrel;
+class UTankTurret;
 
 
 // Holds Barrel's properties and elevate method -jdeo
@@ -17,8 +18,9 @@ class TANKEXPLODERS_API UTankAimingComponent : public UActorComponent
 
 private:
 	UTankBarrel* Barrel = nullptr;
+	UTankTurret* Turret = nullptr;
 
-	void MoveBarrelTowards (FVector AimDirection);
+	void MoveBarrelTowards(FVector AimDirection);
 
 public:	
 	// Sets default values for this component's properties
@@ -26,8 +28,7 @@ public:
 
 	//jdeo- public setter method
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	// TODO: Add SetTurretReference -jdeo
+	void SetTurretReference(UTankTurret* TurretToSet);
 
 	//void AimAt(FVector WorldSpaceAim, float LaunchSpeed);
 	void AimAt(FVector OutHitLocation, float LaunchSpeed);

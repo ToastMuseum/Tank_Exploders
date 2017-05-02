@@ -3,6 +3,7 @@
 
 #include "TankExploders.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "TankAimingComponent.h"
 
 
@@ -19,15 +20,22 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
+	if (!BarrelToSet) { return; }
 	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet) 
+{
+	if (!TurretToSet) { return; }
+	Turret = TurretToSet;
 }
 
 
 void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed) {
 
 
-	if (!Barrel) {
-		UE_LOG(LogTemp, Warning, TEXT("No Barrel Set"));
+	if (!Barrel && !Turret) {
+		UE_LOG(LogTemp, Warning, TEXT("Barrel and Turret Not Set"));
 	}
 	else {
 
@@ -82,7 +90,9 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 	auto DeltaRotator = AimRotator - BarrelRotator;
 	
 	
-	Barrel->Elevate(DeltaRotator.Pitch); //TODO: remove magic number
+	Barrel->Elevate(DeltaRotator.Pitch);
 
+	//TODO: Call Turret rotator method
+	Turret->RotateTurret(DeltaRotator.Yaw);
 }
 
