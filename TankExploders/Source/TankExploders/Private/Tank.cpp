@@ -53,7 +53,7 @@ void ATank::AimAt(FVector OutHitLocation) {
 }
 
 void ATank::Fire() {
-
+	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeSeconds ;
 	auto Time = GetWorld()->GetTimeSeconds();
 	auto Tank = this;
 	if(Tank){
@@ -61,16 +61,23 @@ void ATank::Fire() {
 		UE_LOG(LogTemp, Warning, TEXT(" Time: %f: %s: Shell fired"), Time, *TankName);
 	}
 	
-	if (!Barrel) { return; }
+	if (Barrel && isReloaded) {
+			
+		//Spawn rojectile at socket location on barrel
+		auto NewProjectile = GetWorld()->SpawnActor<AProjectile>(
+			ProjectileBlueprint,
+			Barrel->GetSocketLocation(FName("Projectile")),
+			Barrel->GetSocketRotation(FName("Projectile"))
+			);
 
-	//Spawn rojectile at socket location on barrel
-	auto NewProjectile = GetWorld()->SpawnActor<AProjectile>(
-		ProjectileBlueprint,
-		Barrel->GetSocketLocation(FName("Projectile")),
-		Barrel->GetSocketRotation(FName("Projectile"))
-	);
+		NewProjectile->LaunchProjectile(LaunchSpeed);
+		
 
-	NewProjectile->LaunchProjectile(LaunchSpeed);
+		LastFireTime = FPlatformTime::Seconds();
+	
+	}
+
+	
 
 }
 
