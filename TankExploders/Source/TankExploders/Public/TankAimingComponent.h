@@ -20,6 +20,8 @@ private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
+	bool CheckReferences();
+
 	void MoveBarrelTowards(FVector AimDirection);
 
 public:	

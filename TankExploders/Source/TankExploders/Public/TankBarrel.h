@@ -15,7 +15,7 @@ class TANKEXPLODERS_API UTankBarrel : public UStaticMeshComponent
 	
 private:
 	UPROPERTY(EditAnywhere, Category = "Barrel Setup")
-	float MaxElevationDegrees = 30;
+	float MaxElevationDegrees = 40;
 
 	UPROPERTY(EditAnywhere, Category = "Barrel Setup")
 	float MinElevationDegrees = 0;

@@ -14,15 +14,13 @@ class TANKEXPLODERS_API UTankTurret : public UStaticMeshComponent
 	GENERATED_BODY()
 
 private:
-	//TODO: Put in variables -jdeo
+
 	UPROPERTY(EditAnywhere, Category = "Turret Setup")
-	float MaxDegreesPerSecond = 20;
-	//rotationCorrection so tank doesnt wig out going from 0 to 180 and then -180 to 0,
+	float MaxDegreesPerSecond = 10;
 	
 
 
 public:
-	//TODO: Method for rotating turrets yaw component -jdeo
 	void RotateTurret(float RelativeSpeed);
 	
 	

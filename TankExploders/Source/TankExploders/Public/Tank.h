@@ -45,7 +45,7 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere, Category = Firing)
-	float LaunchSpeed = 100000; // jdeo - 1000 m/s 
-								//TODO: Find Sensible default value
+	float LaunchSpeed = 8000; // jdeo - 6000 cm/s 
+								
 	
 };

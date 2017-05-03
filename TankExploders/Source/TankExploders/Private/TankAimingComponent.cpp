@@ -12,7 +12,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true; // TODO: Should this really tick?
+	PrimaryComponentTick.bCanEverTick = false;
 
 
 	// ...
@@ -30,12 +30,19 @@ void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
 	Turret = TurretToSet;
 }
 
+bool UTankAimingComponent::CheckReferences() {
+	if (!Barrel && !Turret) {
+		UE_LOG(LogTemp, Warning, TEXT("Some references are Not Set"));
+		return true;
+	}
+	return false;
+}
 
 void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed) {
 
-
-	if (!Barrel && !Turret) {
-		UE_LOG(LogTemp, Warning, TEXT("Barrel and Turret Not Set"));
+	bool bNoReferences = CheckReferences();
+	if (bNoReferences) {
+		
 	}
 	else {
 
@@ -92,7 +99,6 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 	
 	Barrel->Elevate(DeltaRotator.Pitch);
 
-	//TODO: Call Turret rotator method
 	Turret->RotateTurret(DeltaRotator.Yaw);
 }
 
