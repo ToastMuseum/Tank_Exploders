@@ -64,11 +64,13 @@ void ATank::Fire() {
 	if (!Barrel) { return; }
 
 	//Spawn rojectile at socket location on barrel
-	GetWorld()->SpawnActor<AProjectile>(
+	auto NewProjectile = GetWorld()->SpawnActor<AProjectile>(
 		ProjectileBlueprint,
 		Barrel->GetSocketLocation(FName("Projectile")),
 		Barrel->GetSocketRotation(FName("Projectile"))
 	);
+
+	NewProjectile->LaunchProjectile(LaunchSpeed);
 
 }
 

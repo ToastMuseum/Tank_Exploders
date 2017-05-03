@@ -10,6 +10,10 @@ AProjectile::AProjectile()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+
+	//jdeo - Create subobject for projectilemovementcomponent
+	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Movement Component"));
+	ProjectileMovementComponent->bAutoActivate = false;
 }
 
 // Called when the game starts or when spawned
@@ -26,3 +30,10 @@ void AProjectile::Tick( float DeltaTime )
 
 }
 
+void AProjectile::LaunchProjectile(float Speed) {
+
+	UE_LOG(LogTemp, Warning, TEXT("Projectile Launched"));
+
+	ProjectileMovementComponent->SetVelocityInLocalSpace(FVector::ForwardVector*Speed);
+	ProjectileMovementComponent->Activate();
+}
