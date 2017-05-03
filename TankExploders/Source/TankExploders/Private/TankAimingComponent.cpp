@@ -94,6 +94,8 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 	
 	Barrel->Elevate(DeltaRotator.Pitch);
 
-	Turret->RotateTurret(DeltaRotator.Yaw);
+	//GetNormalized fixes Awkward turret rotation bug
+	Turret->RotateTurret(DeltaRotator.GetNormalized().Yaw);
+	
 }
 

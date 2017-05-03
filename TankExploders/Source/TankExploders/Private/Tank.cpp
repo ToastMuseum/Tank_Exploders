@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankExploders.h"
+#include "Projectile.h"
+#include "TankBarrel.h"
 #include "TankAimingComponent.h"
 #include "Tank.h"
 
@@ -19,6 +21,7 @@ ATank::ATank()
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	TankAimingComponent->SetBarrelReference(BarrelToSet);
+	Barrel = BarrelToSet;
 }
 
 // jdeo- delegate function to Set turretreference with aiming component
@@ -58,6 +61,14 @@ void ATank::Fire() {
 		UE_LOG(LogTemp, Warning, TEXT(" Time: %f: %s: Shell fired"), Time, *TankName);
 	}
 	
+	if (!Barrel) { return; }
+
+	//Spawn rojectile at socket location on barrel
+	GetWorld()->SpawnActor<AProjectile>(
+		ProjectileBlueprint,
+		Barrel->GetSocketLocation(FName("Projectile")),
+		Barrel->GetSocketRotation(FName("Projectile"))
+	);
 
 }
 

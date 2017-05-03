@@ -10,6 +10,7 @@
 class UTankAimingComponent;
 class UTankBarrel;
 class UTankTurret;
+class AProjectile;
 
 UCLASS()
 class TANKEXPLODERS_API ATank : public APawn
@@ -50,5 +51,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LaunchSpeed = 8000; // jdeo - 6000 cm/s 
 								
-	
+	UPROPERTY(EditAnywhere, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint;	//(Lec 145) Alternative to UClass*: TSubclassOf
+
+	//local barrel reference for spawning projectile
+	UTankBarrel* Barrel = nullptr;
 };
