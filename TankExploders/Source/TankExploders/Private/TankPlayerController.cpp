@@ -12,8 +12,6 @@ void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play"));
-
 	auto ControlledTank = GetControlledTank();
 	if (!ControlledTank) {
 		UE_LOG(LogTemp, Warning, TEXT("PlayerController not possessing a tank"));
@@ -41,8 +39,6 @@ ATank* ATankPlayerController::GetControlledTank() const
 
 void ATankPlayerController::AimTowardsCrosshair() {
 
-	//UE_LOG(LogTemp, Warning, TEXT("aiming crosshairs"));
-
 	if (!GetControlledTank()) { return; }
 
 
@@ -62,7 +58,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 
 	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
 
-	//mouse location on screen
+	//TODO: Decide if we want to use mouse location on screen
 	/* Testing MouseCoordinates on screen instead of crosshair reticle
 
 	float X, Y;
@@ -120,8 +116,11 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 		return true;
 	}
 
+	/* TODO: Remove this later. This is for reference on finding look direction
 	auto TankName = GetControlledTank()->GetName();
 	UE_LOG(LogTemp, Warning, TEXT("%s: No LookDirection Found"), *(TankName));
+	*/
+
 
 	OutHitLocation = FVector(0);
 	return false;

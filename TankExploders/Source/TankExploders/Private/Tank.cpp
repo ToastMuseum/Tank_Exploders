@@ -49,5 +49,15 @@ void ATank::AimAt(FVector OutHitLocation) {
 	TankAimingComponent->AimAt(OutHitLocation, LaunchSpeed); 
 }
 
+void ATank::Fire() {
 
+	auto Time = GetWorld()->GetTimeSeconds();
+	auto Tank = this;
+	if(Tank){
+		auto TankName = Tank->GetName();
+		UE_LOG(LogTemp, Warning, TEXT(" Time: %f: %s: Shell fired"), Time, *TankName);
+	}
+	
+
+}
 
