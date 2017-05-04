@@ -11,7 +11,7 @@ class TANKEXPLODERS_API AProjectile : public AActor
 	GENERATED_BODY()
 	
 
-private:
+protected:
 	UProjectileMovementComponent* ProjectileMovementComponent = nullptr;
 
 public:	
