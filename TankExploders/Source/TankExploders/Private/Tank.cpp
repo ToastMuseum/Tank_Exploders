@@ -53,7 +53,10 @@ void ATank::AimAt(FVector OutHitLocation) {
 }
 
 void ATank::Fire() {
+	
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeSeconds ;
+	
+	//if uncomfortable about using FPlatformTime::Seconds() use GetWorld()->GetTimeSeconds()
 	auto Time = GetWorld()->GetTimeSeconds();
 	auto Tank = this;
 	if(Tank){

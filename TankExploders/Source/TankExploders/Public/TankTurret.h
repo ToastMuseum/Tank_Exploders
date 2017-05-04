@@ -15,7 +15,7 @@ class TANKEXPLODERS_API UTankTurret : public UStaticMeshComponent
 
 private:
 
-	UPROPERTY(EditAnywhere, Category = "Turret Setup")
+	UPROPERTY(EditDefaultsOnly, Category = "Turret Setup")
 	float MaxDegreesPerSecond = 10;
 	
 

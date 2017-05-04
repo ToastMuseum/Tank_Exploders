@@ -31,8 +31,12 @@ void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
 }
 
 bool UTankAimingComponent::CheckReferences() {
-	if (!Barrel && !Turret) {
-		UE_LOG(LogTemp, Warning, TEXT("Some references are Not Set"));
+	if (!Barrel) {
+		UE_LOG(LogTemp, Warning, TEXT("Barrel Not Set"));
+		return true;
+	}
+	if (!Turret) {
+		UE_LOG(LogTemp, Warning, TEXT("Turret Not Set"));
 		return true;
 	}
 	return false;
