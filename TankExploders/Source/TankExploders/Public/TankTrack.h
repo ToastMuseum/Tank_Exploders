@@ -20,4 +20,8 @@ public:
 	void SetThrottle(float Throttle);
 	
 	
+	//large enough to store our value so use float -jdeo
+	////Max Force per track in Newtons [(kg*m)/s^2]
+	UPROPERTY(EditDefaultsOnly)
+	float TrackMaxDrivingForce = 400000; //Assume 40tonne tank, 1g acceleration
 };

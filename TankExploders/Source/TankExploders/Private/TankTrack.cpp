@@ -12,5 +12,11 @@ void UTankTrack::SetThrottle(float Throttle)
 	UE_LOG(LogTemp, Warning, TEXT(" %s throttle %f"), *Name, Throttle);
 
 	// TODO: Clamp actual throttle value so player cannot over-drive.
+	auto ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce;
+	auto ForceLocation = GetComponentLocation(); //applied at track local origin on tank model
+
+	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
+	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
+
 	// TODO: Provide throttle for keyboard keys
 }
