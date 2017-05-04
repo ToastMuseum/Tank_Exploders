@@ -12,8 +12,11 @@ UCLASS()
 class TANKEXPLODERS_API UTankMovementComponent : public UNavMovementComponent
 {
 	GENERATED_BODY()
+
+public:
+	UFUNCTION(BlueprintCallable, Category = Setup) //Allows method to be called in blueprint 
+	void IntendMoveForward(float Throw);
 	
-	
-	
-	
+
+
 };

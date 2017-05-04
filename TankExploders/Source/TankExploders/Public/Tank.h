@@ -11,6 +11,7 @@ class UTankAimingComponent;
 class UTankBarrel;
 class UTankTurret;
 class AProjectile;
+class UTankMovementComponent;
 
 UCLASS()
 class TANKEXPLODERS_API ATank : public APawn
@@ -24,6 +25,9 @@ protected:
 
 	// TankAimingComponent required so put "TankAimingComponent.h" in Tank.cpp -jdeo
 	UTankAimingComponent* TankAimingComponent = nullptr;  
+
+	UPROPERTY(BlueprintReadOnly) // Makes readable from blueprint
+	UTankMovementComponent* TankMovementComponent = nullptr;
 
 public:
 	// Sets default values for this pawn's properties
