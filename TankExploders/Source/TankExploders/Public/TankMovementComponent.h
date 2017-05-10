@@ -20,11 +20,13 @@ private:
 	UTankTrack* RightTrack = nullptr;
 
 public:
-	UFUNCTION(BlueprintCallable, Category = Setup) //Allows method to be called in blueprint 
+	UFUNCTION(BlueprintCallable, Category = Input) //Allows method to be called in blueprint 
 	void IntendMoveForward(float Throw);
 	
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void Initialize(UTankTrack* LeftTracktoSet, UTankTrack* RightTrackToSet);
 
-
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void IntendTurnRight(float Throw);
+	
 };
