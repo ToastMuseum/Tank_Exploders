@@ -30,3 +30,14 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 	RightTrack->SetThrottle(-Throw);
 	// TODO: Prevent double speed due to double control use
 }
+
+void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
+{
+	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
+
+	auto ForwardThrow = FVector::DotProduct(AIForwardIntention, TankForward);
+	IntendMoveForward(ForwardThrow);
+
+	//TODO: Remove UE_LOG(LogTemp, Warning, TEXT("%s: Vectoring to %s"), *(Name->GetName()), *(MoveVelocity.ToString()));
+}

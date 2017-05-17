@@ -17,6 +17,9 @@ class TANKEXPLODERS_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 
+private:
+	//How close enemy tank can get to player
+	float AcceptanceRadius = 3000; // [cm]
 
 public:
 	
