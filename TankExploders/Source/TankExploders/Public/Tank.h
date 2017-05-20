@@ -24,6 +24,7 @@ protected:
 	//			outside of the tank
 
 	// TankAimingComponent required so put "TankAimingComponent.h" in Tank.cpp -jdeo
+	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;  
 
 	UPROPERTY(BlueprintReadOnly) // Makes readable from blueprint
