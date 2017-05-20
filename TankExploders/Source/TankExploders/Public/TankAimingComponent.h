@@ -28,6 +28,10 @@ class TANKEXPLODERS_API UTankAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 private:
+	// Sets default values for this component's properties
+	UTankAimingComponent();
+
+
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
@@ -40,12 +44,10 @@ protected:
 	EFiringState FiringState = EFiringState::Aiming;
 
 public:	
-	// Sets default values for this component's properties
-	UTankAimingComponent();
+	
 
-	//jdeo- public setter method
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-	void SetTurretReference(UTankTurret* TurretToSet);
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
 	//void AimAt(FVector WorldSpaceAim, float LaunchSpeed);
 	void AimAt(FVector OutHitLocation, float LaunchSpeed);

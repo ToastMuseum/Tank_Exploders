@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright BigD Games
 
 #pragma once
 
@@ -33,28 +33,15 @@ protected:
 public:
 	// Sets default values for this pawn's properties
 	ATank();
-
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 	
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
-
 	void AimAt(FVector OutHitLocation);
 
-	UFUNCTION(BlueprintCallable, Category = "Setup")	//jdeo- creates a method we can call from blueprint editor
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void SetTurretReference(UTankTurret* TurretToSet);
 
 	UFUNCTION(BlueprintCallable, Category = "TankControls")
 	void Fire();
 
 
 private:
-	//local barrel reference for spawning projectile
-	UTankBarrel* Barrel = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 8000; // jdeo - 6000 cm/s 
@@ -65,6 +52,8 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTimeSeconds = 3;
+
+	UTankBarrel* Barrel = nullptr; // TODO: Remove
 
 	double LastFireTime = 0;
 };
