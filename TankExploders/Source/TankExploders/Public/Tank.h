@@ -42,13 +42,13 @@ public:
 
 	void AimAt(FVector OutHitLocation);
 
-	UFUNCTION(BlueprintCallable, Category = Setup)	//jdeo- creates a method we can call from blueprint editor
+	UFUNCTION(BlueprintCallable, Category = "Setup")	//jdeo- creates a method we can call from blueprint editor
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
-	UFUNCTION(BlueprintCallable, Category = Setup)
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetTurretReference(UTankTurret* TurretToSet);
 
-	UFUNCTION(BlueprintCallable, Category = TankControls)
+	UFUNCTION(BlueprintCallable, Category = "TankControls")
 	void Fire();
 
 
@@ -56,14 +56,14 @@ private:
 	//local barrel reference for spawning projectile
 	UTankBarrel* Barrel = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 8000; // jdeo - 6000 cm/s 
 								
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;	//(Lec 145) Alternative to UClass*: TSubclassOf
 
 	
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTimeSeconds = 3;
 
 	double LastFireTime = 0;

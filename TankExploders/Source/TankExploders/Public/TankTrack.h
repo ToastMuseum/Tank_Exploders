@@ -16,7 +16,7 @@ class TANKEXPLODERS_API UTankTrack : public UStaticMeshComponent
 	
 public:
 	// Sets a throttle between -1 and +1 -jdeo
-	UFUNCTION(BlueprintCallable, Category = Input)
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	void SetThrottle(float Throttle);
 	
 	
