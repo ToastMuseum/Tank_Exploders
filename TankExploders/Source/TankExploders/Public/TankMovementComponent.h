@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright BigD Games
 
 #pragma once
 
@@ -8,7 +8,7 @@
 class UTankTrack;
 
 /**
- * responsible for driving the tank tracks -jdeo
+ * Responsible for driving the tank tracks -jdeo
  */
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class TANKEXPLODERS_API UTankMovementComponent : public UNavMovementComponent
@@ -19,17 +19,20 @@ private:
 	UTankTrack* LeftTrack = nullptr;
 	UTankTrack* RightTrack = nullptr;
 
+	/** path following: request new velocity
+	private is acceptable because it is called from navmesh component where RequestDirectMove is a public member*/
+	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
+
 public:
-	UFUNCTION(BlueprintCallable, Category = Input) //Allows method to be called in blueprint 
-	void IntendMoveForward(float Throw);
-	
-	UFUNCTION(BlueprintCallable, Category = Setup)
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialize(UTankTrack* LeftTracktoSet, UTankTrack* RightTrackToSet);
 
-	UFUNCTION(BlueprintCallable, Category = Input)
+	UFUNCTION(BlueprintCallable, Category = "Input") //Allows method to be called in blueprint 
+	void IntendMoveForward(float Throw);
+
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	void IntendTurnRight(float Throw);
 
-	/** path following: request new velocity */
-	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
+	
 	
 };
