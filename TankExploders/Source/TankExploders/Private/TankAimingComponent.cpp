@@ -27,11 +27,11 @@ void UTankAimingComponent::Initialize(UTankBarrel * BarrelToSet, UTankTurret * T
 
 
 bool UTankAimingComponent::CheckReferences() {
-	if (!Barrel) {
+	if (!ensure(Barrel)) {
 		UE_LOG(LogTemp, Warning, TEXT("Barrel Not Set"));
 		return true;
 	}
-	if (!Turret) {
+	if (!ensure(Turret)) {
 		UE_LOG(LogTemp, Warning, TEXT("Turret Not Set"));
 		return true;
 	}
@@ -86,7 +86,7 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed) {
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 
-	if (!Barrel || !Turret) { return; }
+	if (!ensure(Barrel && Turret)) { return; }
 
 	// Work out difference between current barrel rotation and AimDirection
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
