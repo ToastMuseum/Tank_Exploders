@@ -2,6 +2,7 @@
 
 
 #include "TankExploders.h"
+#include "TankAimingComponent.h"
 #include "Tank.h"				//jdeo - forward declaraction
 #include "TankPlayerController.h"
 
@@ -12,6 +13,7 @@ void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
+
 	auto ControlledTank = GetControlledTank();
 	if (!ControlledTank) {
 		UE_LOG(LogTemp, Warning, TEXT("PlayerController not possessing a tank"));
@@ -19,8 +21,20 @@ void ATankPlayerController::BeginPlay()
 	else {
 		UE_LOG(LogTemp, Warning, TEXT("PlayerController possessing %s: "), *(ControlledTank->GetName()));
 	}
-}
 
+
+	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if (AimingComponent) {
+		//Broadcasting this event 
+		FoundAimingComponent(AimingComponent);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("PlayerController cant find aiming component at begin play"));
+	}
+
+
+}
 
 // Tick -Jdeo
 void ATankPlayerController::Tick(float DeltaTime) {
