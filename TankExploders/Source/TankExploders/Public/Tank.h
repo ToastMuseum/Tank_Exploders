@@ -42,6 +42,8 @@ public:
 
 
 private:
+	virtual void BeginPlay() override;
+
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 8000; // jdeo - 6000 cm/s 
