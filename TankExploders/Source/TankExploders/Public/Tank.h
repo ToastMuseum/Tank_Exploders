@@ -33,7 +33,7 @@ public:
 	
 	void AimAt(FVector OutHitLocation);
 
-
+	//TODO: Remove once firing is moved to aiming component
 	UFUNCTION(BlueprintCallable, Category = "TankControls")
 	void Fire();
 

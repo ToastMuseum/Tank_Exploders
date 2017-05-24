@@ -12,8 +12,6 @@
 ATank::ATank()
 {
 	auto TankName = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s MEEP: Tank C++ Construct"), *TankName);
-	
 }
 
 
@@ -21,15 +19,15 @@ void ATank::BeginPlay() {
 
 	Super::BeginPlay(); //Needed to run BP BeginPlay
 
-	auto TankName = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s MEEP: Tank C++ BeginPlay"), *TankName);
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
 
 void ATank::AimAt(FVector OutHitLocation) {
 
 	if (!ensure(TankAimingComponent)) { return; }
-	TankAimingComponent->AimAt(OutHitLocation, LaunchSpeed); 
+	TankAimingComponent->AimAt(OutHitLocation, LaunchSpeed);
+
 }
 
 void ATank::Fire() {
