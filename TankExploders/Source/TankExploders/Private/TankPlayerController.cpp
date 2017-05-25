@@ -3,7 +3,6 @@
 
 #include "TankExploders.h"
 #include "TankAimingComponent.h"
-#include "Tank.h"				//jdeo - forward declaraction
 #include "TankPlayerController.h"
 
 
@@ -14,12 +13,12 @@ void ATankPlayerController::BeginPlay()
 	Super::BeginPlay();
 
 
-	auto ControlledTank = GetControlledTank();
+	auto ControlledTank = GetPawn();
 	if (!ensure(ControlledTank)) { return; }
 	UE_LOG(LogTemp, Warning, TEXT("PlayerController possessing %s: "), *(ControlledTank->GetName()));
 
 
-	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponent)) {return;}
 	//Broadcasting this event 
 	FoundAimingComponent(AimingComponent);
@@ -34,22 +33,17 @@ void ATankPlayerController::Tick(float DeltaTime) {
 
 
 
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	
-	return Cast<ATank>(GetPawn());
-}
-
 
 void ATankPlayerController::AimTowardsCrosshair() {
 
-	if (!ensure(GetControlledTank())) { return; }
-
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponent)) { return; }
 
 	FVector OutHitLocation; //OutParameter -jdeo
 
 	if (GetSightRayHitLocation(OutHitLocation)) { //Has "side-effect", is going to line trace -jdeo
-		GetControlledTank()->AimAt(OutHitLocation);
+		
+		AimingComponent->AimAt(OutHitLocation);
 	}
 }
 

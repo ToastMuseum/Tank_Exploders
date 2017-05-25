@@ -38,7 +38,7 @@ bool UTankAimingComponent::CheckReferences() {
 	return false;
 }
 
-void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed) {
+void UTankAimingComponent::AimAt(FVector OutHitLocation) {
 
 	bool bNoReferences = CheckReferences();
 	if (bNoReferences) {
@@ -83,6 +83,7 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed) {
 	}
 
 }
+
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 

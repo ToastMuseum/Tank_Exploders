@@ -7,7 +7,6 @@
 #include "Tank.generated.h" //jdeo- must put new #includes about the generated.h 
 
 //Forward declarations -jdeo
-class UTankAimingComponent;
 class UTankBarrel;
 class UTankTurret;
 class AProjectile;
@@ -15,23 +14,13 @@ class AProjectile;
 UCLASS()
 class TANKEXPLODERS_API ATank : public APawn
 {
-	GENERATED_BODY()
-
-protected:
-	// jdeo- cant be private because this is being accessed through a Ucomponent 
-	//			and it should not be public because it should not be accessed
-	//			outside of the tank
-
-	// TankAimingComponent required so put "TankAimingComponent.h" in Tank.cpp -jdeo
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* TankAimingComponent = nullptr;  
+	GENERATED_BODY() 
 
 
 public:
 	// Sets default values for this pawn's properties
 	ATank();
 	
-	void AimAt(FVector OutHitLocation);
 
 	//TODO: Remove once firing is moved to aiming component
 	UFUNCTION(BlueprintCallable, Category = "TankControls")
@@ -40,10 +29,6 @@ public:
 
 private:
 	virtual void BeginPlay() override;
-
-
-	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float LaunchSpeed = 8000; // jdeo - 6000 cm/s 
 								
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;	//(Lec 145) Alternative to UClass*: TSubclassOf
@@ -55,4 +40,8 @@ private:
 	UTankBarrel* Barrel = nullptr; // TODO: Remove
 
 	double LastFireTime = 0;
+
+	//TODO: Remove once firing is moved to aiming component
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LaunchSpeed = 8000; // jdeo - 6000 cm/s 
 };

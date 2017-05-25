@@ -39,6 +39,10 @@ private:
 
 	void MoveBarrelTowards(FVector AimDirection);
 
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LaunchSpeed = 8000; // jdeo - 6000 cm/s 
+
+
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringState = EFiringState::Locked;
@@ -50,7 +54,8 @@ public:
 	void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
 	//void AimAt(FVector WorldSpaceAim, float LaunchSpeed);
-	void AimAt(FVector OutHitLocation, float LaunchSpeed);
+	void AimAt(FVector OutHitLocation);
+
 
 	
 	
