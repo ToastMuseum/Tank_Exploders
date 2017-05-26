@@ -19,7 +19,7 @@ enum class EFiringState :uint8
 //Forward Decalaration -jdeo
 class UTankBarrel;
 class UTankTurret;
-
+class AProjectile;
 
 // Holds Barrel's properties and elevate method -jdeo
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -31,17 +31,25 @@ private:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-
-	UTankBarrel* Barrel = nullptr;
-	UTankTurret* Turret = nullptr;
-
 	bool CheckReferences();
 
 	void MoveBarrelTowards(FVector AimDirection);
 
+	UTankBarrel* Barrel = nullptr;
+	UTankTurret* Turret = nullptr;
+
+	
+
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 8000; // jdeo - 6000 cm/s 
 
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	TSubclassOf<AProjectile> ProjectileBlueprint;	//(Lec 145) Alternative to UClass*: TSubclassOf
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float ReloadTimeSeconds = 3;
+
+	double LastFireTime = 0;
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
@@ -56,7 +64,8 @@ public:
 	//void AimAt(FVector WorldSpaceAim, float LaunchSpeed);
 	void AimAt(FVector OutHitLocation);
 
-
+	UFUNCTION(BlueprintCallable, Category = "TankControls")
+	void Fire();
 	
 	
 };
