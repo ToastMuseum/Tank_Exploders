@@ -69,7 +69,7 @@ public:
 	//void AimAt(FVector WorldSpaceAim, float LaunchSpeed);
 	void AimAt(FVector OutHitLocation);
 
-	FVector AimDirection;
+	FVector AimDirection = 0.0f;
 
 	UFUNCTION(BlueprintCallable, Category = "TankControls")
 	void Fire();

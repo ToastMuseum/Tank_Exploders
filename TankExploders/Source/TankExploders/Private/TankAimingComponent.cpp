@@ -27,9 +27,17 @@ void UTankAimingComponent::BeginPlay() {
 
 void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) 
 {
-	UE_LOG(LogTemp, Warning, TEXT("Ticking"));
-	if (bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeSeconds) {
+	
+	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeSeconds) {
 		FiringState = EFiringState::Reloading;
+	}
+	else if (IsBarrelMoving())
+	{
+		FiringState = EFiringState::Aiming;
+	}
+	else 
+	{
+		FiringState = EFiringState::Locked;
 	}
 	//TODO: Handle Aiming and Locked states
 }
@@ -86,7 +94,7 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation) {
 		);
 
 		if(bHasAimSolution) {
-			auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+			AimDirection = OutLaunchVelocity.GetSafeNormal();
 			MoveBarrelTowards(AimDirection);
 
 			/*TODO: Remove This Later. This is for reference on GetOwner and GetWorld
@@ -116,6 +124,15 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 	//GetNormalized fixes Awkward turret rotation bug
 	Turret->RotateTurret(DeltaRotator.GetNormalized().Yaw);
 	
+}
+
+bool UTankAimingComponent::IsBarrelMoving()
+{
+	if (!ensure(Barrel)) { return false; }
+
+	auto TankForwardVector = Barrel->GetForwardVector();
+	
+	return !TankForwardVector.Equals(AimDirection, 0.01);
 }
 
 void UTankAimingComponent::Fire() {
