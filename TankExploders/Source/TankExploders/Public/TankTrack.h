@@ -28,6 +28,16 @@ public:
 private:
 	UTankTrack();
 
+	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
+	// Creating an OnHit event in cpp - jdeo
+	UFUNCTION(BlueprintCallable, Category = "Track Collision")
+	void OnHit(UPrimitiveComponent* HitComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComponent,
+		FVector NormalImpulse,
+		const FHitResult& Hit
+	);
 
 };
