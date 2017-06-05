@@ -29,7 +29,8 @@ private:
 	UTankTrack();
 
 	virtual void BeginPlay() override;
-	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
+	void ApplySidewaysForce();
 
 	// Creating an OnHit event in cpp - jdeo
 	UFUNCTION(BlueprintCallable, Category = "Track Collision")
@@ -39,5 +40,8 @@ private:
 		FVector NormalImpulse,
 		const FHitResult& Hit
 	);
+
+	void DriveTrack();
+	float CurrentThrottle=0;
 
 };
