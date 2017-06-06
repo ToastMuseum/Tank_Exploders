@@ -23,7 +23,6 @@ void UTankTrack::OnHit(UPrimitiveComponent * HitComponent, AActor * OtherActor, 
 {
 	DriveTrack();
 	ApplySidewaysForce();
-	UE_LOG(LogTemp, Warning, TEXT("Current Throttle: %f"), CurrentThrottle);
 	CurrentThrottle = 0;
 }
 

@@ -42,8 +42,9 @@ void ATankPlayerController::AimTowardsCrosshair() {
 	if (!ensure(AimingComponent)) { return; }
 
 	FVector OutHitLocation; //OutParameter -jdeo
-
-	if (GetSightRayHitLocation(OutHitLocation)) { //Has "side-effect", is going to line trace -jdeo
+	bool bGotHitLocation = GetSightRayHitLocation(OutHitLocation);
+	UE_LOG(LogTemp, Warning, TEXT("Got Hit Location: %i"), bGotHitLocation);
+	if (bGotHitLocation) { //Has "side-effect", is going to line trace -jdeo
 		
 		AimingComponent->AimAt(OutHitLocation);
 	}
@@ -77,12 +78,12 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	FVector LookDirection;
 	if (GetLookDirection(ScreenLocation, LookDirection)){
 		// Linetrace along that look direction and see what we hit (up to max range)
-		//return GetLookVectorHitLocation(LookDirection, OutHitLocation); // Tank barrel does not reset to zero -jdeo
-		GetLookVectorHitLocation(LookDirection, OutHitLocation);
+		return GetLookVectorHitLocation(LookDirection, OutHitLocation); // Tank barrel does not reset to zero -jdeo
+		//GetLookVectorHitLocation(LookDirection, OutHitLocation);
 	}
 
-	//return false; //TankBarrel doesn't reset to zero -jdeo
-	return true;
+	return false; //TankBarrel doesn't reset to zero -jdeo
+	//return true;
 	
 }
 
