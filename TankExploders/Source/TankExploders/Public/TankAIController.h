@@ -15,9 +15,14 @@ class TANKEXPLODERS_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 
-private:
+protected:
+	// Acceptance radius is moved into the protected class so the children can read it
 	//How close enemy tank can get to player
-	float AcceptanceRadius = 3000; // [cm]
+	UPROPERTY(EditAnywhere, Category="Setup") //consider using EditDefaultsOnly
+	float AcceptanceRadius = 8000; // [cm]
+
+private:
+	
 
 public:
 	

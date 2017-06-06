@@ -30,6 +30,7 @@ void ATankAIController::Tick(float DeltaTime) {
 		
 	//TODO: limit Fire rate
 	if (AimingComponent->GetFiringState() == EFiringState::Locked) {
+		AimingComponent->Fire(); //TODO: Fix Firing
 	}
 }
 
