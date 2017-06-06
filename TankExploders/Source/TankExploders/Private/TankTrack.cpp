@@ -49,12 +49,13 @@ void UTankTrack::ApplySidewaysForce()
 
 void UTankTrack::SetThrottle(float Throttle)
 {
+	// TODO: Clamp actual throttle value so player cannot over-drive.
 	CurrentThrottle = FMath::Clamp<float>(CurrentThrottle + Throttle, -1, 1);
 }
 
 void UTankTrack::DriveTrack()
 {
-	// TODO: Clamp actual throttle value so player cannot over-drive.
+	
 	auto ForceApplied = GetForwardVector() * CurrentThrottle * TrackMaxDrivingForce;
 	auto ForceLocation = GetComponentLocation(); //applied at track local origin on tank model
 

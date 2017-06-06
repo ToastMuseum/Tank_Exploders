@@ -74,5 +74,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "TankControls")
 	void Fire();
 	
+	EFiringState GetFiringState() const;
 	
 };

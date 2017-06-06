@@ -43,7 +43,6 @@ void ATankPlayerController::AimTowardsCrosshair() {
 
 	FVector OutHitLocation; //OutParameter -jdeo
 	bool bGotHitLocation = GetSightRayHitLocation(OutHitLocation);
-	UE_LOG(LogTemp, Warning, TEXT("Got Hit Location: %i"), bGotHitLocation);
 	if (bGotHitLocation) { //Has "side-effect", is going to line trace -jdeo
 		
 		AimingComponent->AimAt(OutHitLocation);
