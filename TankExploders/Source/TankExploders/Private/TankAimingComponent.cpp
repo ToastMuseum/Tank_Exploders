@@ -137,6 +137,15 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 
 	//GetNormalized fixes Awkward turret rotation bug
 	Turret->RotateTurret(DeltaRotator.GetNormalized().Yaw);
+
+	//Another way to rotate the turret properly
+	/*
+	if (FMath::Abs(DeltaRotator.Yaw) < 180){
+		Turret->RotateTurret(DeltaRotator.Yaw);
+	}
+	else {
+		Turret->RotateTurret(-DeltaRotator.Yaw);
+	*/
 	
 }
 
