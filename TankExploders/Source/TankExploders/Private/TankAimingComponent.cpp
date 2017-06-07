@@ -27,8 +27,10 @@ void UTankAimingComponent::BeginPlay() {
 
 void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) 
 {
-	
-	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeSeconds) {
+	if (RoundsLeft <= 0) {
+		FiringState = EFiringState::OutOfAmmo;
+	}
+	else if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeSeconds) {
 		FiringState = EFiringState::Reloading;
 	}
 	else if (IsBarrelMoving())
@@ -39,9 +41,15 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 	{
 		FiringState = EFiringState::Locked;
 	}
+
+	
 	//TODO: Handle Aiming and Locked states
 }
 
+int UTankAimingComponent::GetRoundsLeft() const
+{
+	return RoundsLeft;
+}
 
 EFiringState UTankAimingComponent::GetFiringState() const 
 {
@@ -152,7 +160,7 @@ void UTankAimingComponent::Fire() {
 		//UE_LOG(LogTemp, Warning, TEXT(" Time: %f: %s: Shell fired"), Time, *TankName);
 	}
 
-	if (FiringState != EFiringState::Reloading) {
+	if (FiringState == EFiringState::Locked || FiringState == EFiringState::Aiming) {
 
 		//Spawn rojectile at socket location on barrel
 		if (!ensure(Barrel)) { return; }
@@ -165,8 +173,8 @@ void UTankAimingComponent::Fire() {
 			);
 
 		NewProjectile->LaunchProjectile(LaunchSpeed);
-
 		LastFireTime = FPlatformTime::Seconds();
+		RoundsLeft--;
 
 	}
 
