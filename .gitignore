@@ -70,14 +70,14 @@ DerivedDataCache/*
 */Intermediate/
 */Saved/
 
-*/Content/StarterContent
 
 
 # Visual Studio Generated Files
 #==============================
 *vc.db
 TankExploders.VC.VC.opendb
-*.vs/BuildingEscape/v14/.suo
+.vs/
+*.vs/TankExploders/v14/.suo
 *.suo
 
 *.ipch
