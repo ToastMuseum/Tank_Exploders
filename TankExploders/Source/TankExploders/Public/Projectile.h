@@ -13,6 +13,9 @@ class TANKEXPLODERS_API AProjectile : public AActor
 
 protected:
 	UProjectileMovementComponent* ProjectileMovementComponent = nullptr;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UStaticMeshComponent* CollisionMesh = nullptr;
+	UParticleSystemComponent* LaunchBlast = nullptr;
 
 public:	
 	// Sets default values for this actor's properties

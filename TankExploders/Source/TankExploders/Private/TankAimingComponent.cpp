@@ -46,7 +46,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 	//TODO: Handle Aiming and Locked states
 }
 
-int UTankAimingComponent::GetRoundsLeft() const
+int32 UTankAimingComponent::GetRoundsLeft() const
 {
 	return RoundsLeft;
 }

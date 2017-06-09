@@ -14,6 +14,14 @@ AProjectile::AProjectile()
 	//jdeo - Create subobject for projectilemovementcomponent
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Movement Component"));
 	ProjectileMovementComponent->bAutoActivate = false;
+
+	CollisionMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("Collision Mesh"));
+	SetRootComponent(CollisionMesh);
+	CollisionMesh->SetNotifyRigidBodyCollision(true); // jdeo- setting the default to true. in bp editor if "simulation Generates hit events" was unchecked a revert arrow would appear
+	CollisionMesh->SetVisibility(false);
+
+	LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Launch Blast"));
+	LaunchBlast->AttachTo(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -36,4 +44,5 @@ void AProjectile::LaunchProjectile(float Speed) {
 
 	ProjectileMovementComponent->SetVelocityInLocalSpace(FVector::ForwardVector*Speed);
 	ProjectileMovementComponent->Activate();
+
 }

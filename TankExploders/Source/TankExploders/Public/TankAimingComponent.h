@@ -57,7 +57,8 @@ private:
 
 	double LastFireTime = 0;
 
-	int RoundsLeft = 5;
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	int32 RoundsLeft = 5; //uint32 is not compatible with uproperty()
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
@@ -80,6 +81,6 @@ public:
 	EFiringState GetFiringState() const;
 
 	UFUNCTION(BlueprintCallable, Category = "Firing")
-	int GetRoundsLeft() const;
+	int32 GetRoundsLeft() const;
 	
 };
