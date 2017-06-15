@@ -4,11 +4,13 @@
 #include "Projectile.h"
 
 
+
+
 // Sets default values
 AProjectile::AProjectile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 
 	//jdeo - Create subobject for projectilemovementcomponent
@@ -21,7 +23,11 @@ AProjectile::AProjectile()
 	CollisionMesh->SetVisibility(false);
 
 	LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Launch Blast"));
-	LaunchBlast->AttachTo(RootComponent);
+	LaunchBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform); //TODO: Update to new API Using AttachToComponent
+
+	ImpactBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("ImpactBlast"));
+	ImpactBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform); //KeepRelativeTransform
+	ImpactBlast->bAutoActivate = false;
 }
 
 // Called when the game starts or when spawned
@@ -29,7 +35,17 @@ void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	CollisionMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
 }
+
+void AProjectile::OnHit(UPrimitiveComponent * HitComponent, AActor * OtherActor, UPrimitiveComponent * OtherComponent, FVector NormalImpulse, const FHitResult & Hit)
+{
+	LaunchBlast->Deactivate();
+	ImpactBlast->Activate();
+
+	
+}
+
 
 // Called every frame
 void AProjectile::Tick( float DeltaTime )
@@ -44,5 +60,7 @@ void AProjectile::LaunchProjectile(float Speed) {
 
 	ProjectileMovementComponent->SetVelocityInLocalSpace(FVector::ForwardVector*Speed);
 	ProjectileMovementComponent->Activate();
+
+
 
 }
