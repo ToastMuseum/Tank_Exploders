@@ -109,7 +109,7 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation) {
 
 		if(bHasAimSolution) {
 			AimDirection = OutLaunchVelocity.GetSafeNormal();
-			MoveBarrelTowards(AimDirection);
+			MoveBarrelTowards();
 
 			/*TODO: Remove This Later. This is for reference on GetOwner and GetWorld
 			auto Time = GetWorld()->GetTimeSeconds(); 
@@ -123,7 +123,7 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation) {
 }
 
 
-void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
+void UTankAimingComponent::MoveBarrelTowards() {
 
 	if (!ensure(Barrel && Turret)) { return; }
 

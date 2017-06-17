@@ -37,7 +37,7 @@ private:
 
 	bool CheckReferences();
 
-	void MoveBarrelTowards(FVector AimDirection);
+	void MoveBarrelTowards();
 
 	bool IsBarrelMoving();
 

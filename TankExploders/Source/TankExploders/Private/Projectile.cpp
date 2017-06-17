@@ -24,10 +24,12 @@ AProjectile::AProjectile()
 
 	LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Launch Blast"));
 	LaunchBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform); //TODO: Update to new API Using AttachToComponent
-
+	
+	
 	ImpactBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("ImpactBlast"));
 	ImpactBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform); //KeepRelativeTransform
 	ImpactBlast->bAutoActivate = false;
+	
 }
 
 // Called when the game starts or when spawned
@@ -40,9 +42,9 @@ void AProjectile::BeginPlay()
 
 void AProjectile::OnHit(UPrimitiveComponent * HitComponent, AActor * OtherActor, UPrimitiveComponent * OtherComponent, FVector NormalImpulse, const FHitResult & Hit)
 {
+	
 	LaunchBlast->Deactivate();
 	ImpactBlast->Activate();
-
 	
 }
 
