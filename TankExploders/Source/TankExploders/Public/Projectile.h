@@ -17,19 +17,20 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UStaticMeshComponent* CollisionMesh = nullptr;
 
-	
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UParticleSystemComponent* LaunchBlast = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UParticleSystemComponent* ImpactBlast = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		URadialForceComponent* ExplosionForce = nullptr;
 
 	
 
 private:
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UParticleSystemComponent* LaunchBlast = nullptr;
-
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UParticleSystemComponent* ImpactBlast = nullptr;
-
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	URadialForceComponent* ExplosionForce = nullptr;
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float DestroyDelay = 10.0f;
 
 	UFUNCTION(BlueprintCallable, Category = "Projectile Collision")
 	void OnHit(UPrimitiveComponent* HitComponent,
@@ -39,9 +40,13 @@ private:
 		const FHitResult& Hit
 	);
 
+	void OnTimerExpire();
+
 public:	
 	// Sets default values for this actor's properties
 	AProjectile();
+
+
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -50,7 +55,6 @@ public:
 	virtual void Tick( float DeltaSeconds ) override;
 
 	void LaunchProjectile(float Speed);
-
 	
 	
 };
