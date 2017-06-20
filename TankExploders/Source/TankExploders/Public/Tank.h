@@ -11,7 +11,8 @@ UCLASS()
 class TANKEXPLODERS_API ATank : public APawn
 {
 	GENERATED_BODY()
-	
+
+private:
 	ATank();
 
 
@@ -24,7 +25,7 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Setup")
 	int32 CurrentHealth = MaxHealth;
 
-	// called by engine when actor damage is dealt
+	// called by engine when actor damage is dealt -jdeo
 	virtual float TakeDamage(
 		float DamageAmount,
 		struct FDamageEvent const & DamageEvent,
@@ -32,6 +33,9 @@ public:
 		AActor * DamageCauser
 	) override;
 
+	// return current health as a percentage of starting health between 0 and 1 -jdeo
+	UFUNCTION(BlueprintPure, Category = "Health")
+	float GetHealthPercent() const;
 
 
 };
