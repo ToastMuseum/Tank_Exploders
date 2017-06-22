@@ -28,7 +28,7 @@ protected:
 
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
-		void FoundAimingComponent(UTankAimingComponent* AimCompRef);
+	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 
 private:
 	//jdeo- start tank moving barrel so a shot would hit where
@@ -37,6 +37,11 @@ private:
 
 	 //Return OUT parameter, true if hit landscape - jdeo
 	 bool GetSightRayHitLocation(FVector& OutHitLocation) const;
+
+	 virtual void SetPawn(APawn* InPawn) override;
+
+	 UFUNCTION()
+	 void OnPossessedTankDeath();
 
 
 	 UPROPERTY (EditDefaultsOnly)

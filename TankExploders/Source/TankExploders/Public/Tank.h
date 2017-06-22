@@ -19,12 +19,13 @@ private:
 
 
 public:
-	
-	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere, Category = "Setup")
 	int32 MaxHealth = 100;
 
 	UPROPERTY(VisibleAnywhere, Category = "Setup")
-	int32 CurrentHealth = MaxHealth;
+	int32 CurrentHealth;
 
 	// called by engine when actor damage is dealt -jdeo
 	virtual float TakeDamage(

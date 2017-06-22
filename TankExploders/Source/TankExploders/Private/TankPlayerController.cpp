@@ -4,7 +4,7 @@
 #include "TankExploders.h"
 #include "TankAimingComponent.h"
 #include "TankPlayerController.h"
-
+#include "Tank.h"
 
 
 // BeginPlay -Jdeo
@@ -23,6 +23,23 @@ void ATankPlayerController::BeginPlay()
 	//Broadcasting this event 
 	FoundAimingComponent(AimingComponent);
 
+}
+
+void ATankPlayerController::SetPawn(APawn * InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn) {
+		auto PossessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossessedTank)) { return; }
+
+		//register BroadcastingInstance to subscribe our local method to the tanks death event - jdeo 
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPossessedTankDeath);
+	}
+
+}
+
+void ATankPlayerController::OnPossessedTankDeath() {
+	StartSpectatingOnly();
 }
 
 // Tick -Jdeo
@@ -85,6 +102,8 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	//return true;
 	
 }
+
+
 
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const {
 
