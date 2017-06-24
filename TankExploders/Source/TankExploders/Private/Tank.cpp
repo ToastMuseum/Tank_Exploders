@@ -14,6 +14,12 @@ ATank::ATank()
 void ATank::BeginPlay() {
 	Super::BeginPlay();
 
+	// Getting the Root component for the UStaticMeshComponent so we can SimulatePhysics on beginPlay() 
+	// This eliminates the tank in terrain bug -jdeo
+	auto TankRoot = Cast<UStaticMeshComponent>(GetRootComponent());
+	TankRoot->SetSimulatePhysics(false);
+	TankRoot->SetSimulatePhysics(true);
+
 	CurrentHealth = MaxHealth;
 
 }
